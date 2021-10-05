@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/login")
@@ -19,9 +18,8 @@ public class LoginController {
     private LoginService loginService;
 
     @PostMapping("/get")
-    public User getLoginData(@RequestBody final LoginModel loginModel)
-    {
-        User users = loginService.checkUser(loginModel);
+    public User getLoginData(@RequestBody final LoginModel loginModel) {
+        final User users = loginService.checkUser(loginModel);
         return users;
     }
 }
