@@ -4,6 +4,7 @@ import com.dharn.loginservice.entity.LoginModel;
 import com.dharn.loginservice.entity.User;
 import com.dharn.loginservice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -12,15 +13,21 @@ import org.springframework.web.client.RestTemplate;
 public class LoginServiceImpl implements LoginService {
     private RestTemplate restTemplate = new RestTemplate();
     @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    @Autowired
+    private final Environment environment;
 
+    public LoginServiceImpl(UserRepository userRepository, Environment environment) {
+        this.userRepository = userRepository;
+        this.environment = environment;
+    }
 
     @Override
     public User checkUser(final LoginModel loginModel) {
         final User userByEmail = userRepository.findUserByEmail(loginModel.getEmail());
 
         if (userByEmail != null && loginModel.getPassword().equals(userByEmail.getPassword()) && loginModel.getEmail().equals(userByEmail.getEmail())) {
-            String url = "http://localhost:8086/user/login/{email}";
+            String url = environment.getProperty("com.dharn.loginService.login");
             User forObject = restTemplate.getForObject(url, User.class, loginModel.getEmail());
 
             System.out.println(forObject.getEmail());
