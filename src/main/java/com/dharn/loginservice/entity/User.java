@@ -18,6 +18,10 @@ public class User {
     private String password;
     private double phoneNo;
     //  Date dateOfBirth;
-    private String address;
+    private String doorNo_StreetName;
+    private String district;
+    private String state;
+    private int pincode;
+    private String country;
 
 }
