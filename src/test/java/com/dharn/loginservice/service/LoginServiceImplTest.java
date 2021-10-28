@@ -19,7 +19,7 @@ class LoginServiceImplTest {
         user.setName("Gokul");
         user.setEmail("gokul@gmail.com");
         user.setPassword("Gokul@123");
-        user.setPhoneNo(1234567890);
+        user.setPhoneNo("1234567890");
         user.setDoorNo_StreetName("asdfgh");
         loginModel.setEmail("kavin@gmail.com");
         loginModel.setPassword("Kavin@123");
